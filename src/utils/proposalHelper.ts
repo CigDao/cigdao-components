@@ -1,4 +1,4 @@
-import { Canister, Proposal, RequestDraft, TaxType } from '@declarations/dao';
+import { Canister, Proposal, RequestDraft, TaxType } from '../declarations/dao';
 
 export interface IProposal {
 	_type: string;

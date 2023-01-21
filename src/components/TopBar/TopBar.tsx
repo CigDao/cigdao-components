@@ -1,25 +1,24 @@
-import { AppBar, Container, Toolbar, Box, Menu, MenuItem, Button, Divider, CircularProgress, Typography, useMediaQuery } from '@mui/material';
+import { AppBar, Container, Toolbar, Box, Menu, MenuItem, Button, Divider, CircularProgress, Typography, useMediaQuery, Theme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import logo from '@assets/images/cig_logo_small.png';
+import logo from '../../assets/images/cig_logo_small.png';
 import { useCanister, useConnect } from '@connect2ic/react';
 import { NFID, PlugWallet, StoicWallet } from '@connect2ic/core/providers';
 import { Principal } from '@dfinity/principal';
-import { _SERVICE as _TOKEN_SERVICE } from '@declarations/token';
-import { _SERVICE as _LEDGER_SERVICE } from '@declarations/ledger';
+import { _SERVICE as _TOKEN_SERVICE } from '../../declarations/token';
+import { _SERVICE as _LEDGER_SERVICE } from '../../declarations/ledger';
 import { AccountIdentifier, SubAccount } from '@dfinity/nns';
-import canisterIds from '@misc/canisterIds';
-import { theme } from '@misc/theme';
-import { getPrettyDecimals } from '@utils/validationHelper';
-import NavMenu from '@components/NavMenu';
+import canisterIds from '../../misc/canisterIds';
+import { getPrettyDecimals } from '../../utils/validationHelper';
+import NavMenu from './NavMenu';
 
-export default function Topbar(param: {appName: string}) {
+export default function Topbar(param: {appName: string, theme: Theme}) {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const [userYcBalance, setUserYcBalance] = useState('');
 	const [userIcpBalance, setUserIcpBalance] = useState('');
 	const [treasuryYcBalance, setTreasuryYcBalance] = useState('');
 	const [treasuryIcpBalance, setTreasuryIcpBalance] = useState('');
 	const [isLoadingBalances, setIsLoadingBalances] = useState(false);
-	const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+	const isSmallScreen = useMediaQuery(param.theme.breakpoints.down('md'));
 	const { activeProvider, connect, disconnect, isInitializing, principal } = useConnect();
 
 	const [_tokenActor] = useCanister('token');
@@ -87,7 +86,7 @@ export default function Topbar(param: {appName: string}) {
 	}
 
 	return (
-		<AppBar position='static' elevation={0} sx={{ bgcolor: theme => theme.palette.primary.light }}>
+		<AppBar position='static' elevation={0} sx={{ bgcolor: param.theme.palette.primary.light }}>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
@@ -113,7 +112,7 @@ export default function Topbar(param: {appName: string}) {
 							</Box>
 						</Box>
 						<Box sx={{ display: 'flex', width: '33%', justifyContent: 'center' }}>
-							<NavMenu appName={param.appName}/>
+							<NavMenu appName={param.appName} theme={param.theme}/>
 						</Box>
 						<Box sx={{ display: 'flex', width: '33%', justifyContent: 'flex-end' }}>
 							{activeProvider ? (

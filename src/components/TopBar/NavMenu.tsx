@@ -1,9 +1,9 @@
-import { Button, MenuItem, Typography, Menu, useMediaQuery } from '@mui/material';
+import { Button, MenuItem, Typography, Menu, Theme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/system';
 
-export default function NavMenu(param: {appName: string}) {
+export default function NavMenu(param: {appName: string, theme: Theme}) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [options, setOptions] = useState<Map<string, string>>(new Map())
     const [loading, setLoading] = useState<boolean>(true)
@@ -58,10 +58,10 @@ export default function NavMenu(param: {appName: string}) {
             onClick={handleClick}
             disabled={loading}
         >
-        <Typography variant='h6' sx={{ my: 2, color: theme => theme.palette.primary.contrastText }}>
+        <Typography variant='h6' sx={{ my: 2, color: param.theme.palette.primary.contrastText }}>
             {param.appName} 
         </Typography>
-        <Box sx={{color: theme => theme.palette.primary.contrastText }}><ExpandMoreIcon/></Box>
+        <Box sx={{color: param.theme.palette.primary.contrastText }}><ExpandMoreIcon/></Box>
         
         </Button>
         <Menu

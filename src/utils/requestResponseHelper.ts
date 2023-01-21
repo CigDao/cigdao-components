@@ -1,4 +1,4 @@
-import { RequestResponse, Token } from '@declarations/treasury';
+import { RequestResponse, Token } from '../declarations/treasury';
 
 export interface IRequestResponse {
 	_type: string;
